@@ -1,39 +1,49 @@
 class Solution {
-    public void solveSudoku(char[][] board) {
-        solve(board);
-    }
-
-    private boolean solve(char[][] board) {
-        for (int row = 0; row < 9; row++) {
-            for (int col = 0; col < 9; col++) {
-                if (board[row][col] == '.') {
-                    for (char digit = '1'; digit <= '9'; digit++) {
-                        if (isValid(board, row, col, digit)) {
-                            board[row][col] = digit;
-                            if (solve(board)) {
-                                return true;
-                            }
-                            board[row][col] = '.'; // backtrack
-                        }
-                    }
-                    return false; // no valid digit found
+    public boolean isValid(char[][] board,int row,int col,char d){
+        for(int i=0;i<9;i++){
+           if(board[i][col]==d){
+            return false;
+           }
+           if(board[row][i]==d){
+            return false;
+           } 
+        }
+        int start_i=row/3*3;
+        int start_j=col/3*3;
+        for(int k=0;k<3;k++){
+            for(int l=0;l<3;l++){
+                if(board[start_i+k][start_j+l]==d){
+                    return false;
                 }
             }
         }
-        return true; // board completely solved
-    }
-
-    private boolean isValid(char[][] board, int row, int col, char digit) {
-        for (int i = 0; i < 9; i++) {
-            // Check row
-            if (board[row][i] == digit) return false;
-            // Check column
-            if (board[i][col] == digit) return false;
-            // Check 3x3 sub-box
-            int boxRow = 3 * (row / 3) + i / 3;
-            int boxCol = 3 * (col / 3) + i % 3;
-            if (board[boxRow][boxCol] == digit) return false;
-        }
         return true;
+    }
+    public boolean solve(char[][] board){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j]=='.'){
+                    for(char d='1';d<='9';d++){
+                        // backtracking so first do
+                        if(isValid(board,i,j,d)){
+                            board[i][j]=d; 
+                    
+                        // then explore 
+                        if(solve(board)==true){
+                            return true;
+                        }
+                      // and last step undo 
+                        board[i][j]='.';
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    // matlab sare cells bhare hue honge to true return ho jayega 
+    return true;
+    }
+    public void solveSudoku(char[][] board) {
+        solve(board);
     }
 }
