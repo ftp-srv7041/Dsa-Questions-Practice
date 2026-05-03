@@ -9,6 +9,7 @@ class Solution {
         int minlen=Integer.MAX_VALUE;
         int start=0;
         count=t.length();
+        
         for(int high=0;high<s.length();high++){
             char ch=s.charAt(high);
 
