@@ -2,13 +2,14 @@ class Solution {
     public boolean isHappy(int n) {
         int slow=n;
         int fast=n;
-        while(fast!=1){
-            slow=fun(slow);
-            fast=fun(fun(fast));
-            if(slow==fast&&slow!=1)
-            return false;
+        while(true){
+           slow=fun(slow);
+           fast=fun(fun(fast));
+           if(fast==1)
+           return true;
+           if(slow==fast)
+           return false; 
         }
-        return true;
     }
     public int fun(int n){
         int sum=0;
