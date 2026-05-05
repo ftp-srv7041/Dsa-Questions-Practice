@@ -1,24 +1,22 @@
 class Solution {
     public boolean isHappy(int n) {
-        Set<Integer> mp=new HashSet<>();
-        while(n!=1){
-            if(mp.contains(n)){
-                return false;
-            }
-            else{
-                mp.add(n);
-            }
-            n=calsquare(n);
+        int slow=n;
+        int fast=n;
+        while(fast!=1){
+            slow=fun(slow);
+            fast=fun(fun(fast));
+            if(slow==fast&&slow!=1)
+            return false;
         }
         return true;
     }
-     public int calsquare(int num){
-           int sum=0;
-           while(num!=0){
-            int rem=num%10;
-            sum+=rem*rem;
-            num=num/10;
-           } 
-           return sum;
+    public int fun(int n){
+        int sum=0;
+        while(n>0){
+           int d=n%10;
+           n=n/10;
+           sum=sum+d*d; 
         }
+        return sum;
+    }
 }
