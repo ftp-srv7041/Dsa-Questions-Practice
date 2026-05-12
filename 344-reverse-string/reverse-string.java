@@ -1,17 +1,11 @@
 class Solution {
     public void reverseString(char[] s) {
-        reverseHelper(s, 0, s.length - 1);
-    }
-
-    private void reverseHelper(char[] s, int left, int right) {
-        if (left >= right) {
-            return;
+        Stack<Character> st=new Stack<>();
+        for(char c:s){
+            st.push(c);
         }
-
-        // Swap characters
-        char temp = s[left];
-        s[left] = s[right];
-        s[right] = temp;
-        reverseHelper(s, left + 1, right - 1);
+        for(int i=0;i<s.length;i++){
+            s[i]=st.pop();
+        }
     }
 }
